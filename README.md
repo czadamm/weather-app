@@ -19,3 +19,4 @@ To start the App (provided emulators are available):
 
 `a` - for Android
 
+Weather API - https://www.weatherapi.com/
