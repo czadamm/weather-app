@@ -15,5 +15,6 @@ To start the App (provided emulators are available):
 `npm start`
 
 `i` - for iOS
+
 `a` - for Android
 
