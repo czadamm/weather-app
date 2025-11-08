@@ -86,7 +86,6 @@ export default function ForecastList({ selectedWeather, onSelectWeather, isDayTi
 const styles = StyleSheet.create({
   container: {
     height: 100,
-    marginTop: 100,
   },
   scrollContent: {
     flexDirection: 'row',

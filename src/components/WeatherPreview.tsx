@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 import { NormalizedWeather } from '../services/weatherService';
 
 const DETAILS_COLOR = '#fff';
@@ -11,39 +11,44 @@ interface WeatherPreviewProps extends NormalizedWeather {
 
 export default function WeatherPreview({ isCurrentWeather = false, ...data }: WeatherPreviewProps) {
   const iconUrl = data.icon.startsWith('//') ? `https:${data.icon}` : data.icon;
+  const isDay = iconUrl.includes('day');
 
   return (
     <View style={styles.padding}>
-      <View style={styles.container}>
-        <Image source={{ uri: iconUrl }} style={styles.icon} resizeMode="contain" />
-        <Text style={styles.temperature}>
-          {!isCurrentWeather && <Text style={styles.label}>Daily average: </Text>}
-          {Math.round(data.temp)}°
-        </Text>
-        <Text style={styles.condition}>{data.condition}</Text>
-        {data.feelsLike !== undefined && (
-          <Text style={styles.feelsLike}>
-            Feels like: <Text style={styles.bolded}>{Math.round(data.feelsLike)}°</Text>
-          </Text>
-        )}
-        {data.maxTemp !== undefined && data.minTemp !== undefined && (
-          <View style={styles.tempRange}>
-            <Text style={styles.tempText}>
-              Highest: <Text style={styles.bolded}>{Math.round(data.maxTemp)}°</Text>
+      <View style={styles.outerContainer}>
+        <ScrollView style={{ flex: 1 }} alwaysBounceVertical={false} showsVerticalScrollIndicator={false}>
+          <View style={styles.innerContainer}>
+            <Image source={{ uri: iconUrl }} style={styles.icon} resizeMode="contain" />
+            <Text style={[styles.temperature, { color: isDay ? 'black' : 'white' }]}>
+              <Text style={styles.label}>{!isCurrentWeather ? 'Avg: ' : 'Now: '}</Text>
+              {Math.round(data.temp)}°
             </Text>
-            <Text style={styles.tempText}>
-              Lowest: <Text style={styles.bolded}>{Math.round(data.minTemp)}°</Text>
+            <Text style={styles.condition}>{data.condition}</Text>
+            {data.feelsLike !== undefined && (
+              <Text style={styles.feelsLike}>
+                Feels like: <Text style={styles.bolded}>{Math.round(data.feelsLike)}°</Text>
+              </Text>
+            )}
+            {data.maxTemp !== undefined && data.minTemp !== undefined && (
+              <View style={styles.tempRange}>
+                <Text style={styles.tempText}>
+                  Highest: <Text style={styles.bolded}>{Math.round(data.maxTemp)}°</Text>
+                </Text>
+                <Text style={styles.tempText}>
+                  Lowest: <Text style={styles.bolded}>{Math.round(data.minTemp)}°</Text>
+                </Text>
+              </View>
+            )}
+            <Text style={styles.humidity}>
+              Humidity: <Text style={styles.bolded}>{data.humidity}%</Text>
             </Text>
+            {data.chanceOfRain !== undefined && (
+              <Text style={styles.rainChance}>
+                Chance of rain: <Text style={styles.bolded}>{data.chanceOfRain}%</Text>
+              </Text>
+            )}
           </View>
-        )}
-        <Text style={styles.humidity}>
-          Humidity: <Text style={styles.bolded}>{data.humidity}%</Text>
-        </Text>
-        {data.chanceOfRain !== undefined && (
-          <Text style={styles.rainChance}>
-            Chance of rain: <Text style={styles.bolded}>{data.chanceOfRain}%</Text>
-          </Text>
-        )}
+        </ScrollView>
       </View>
     </View>
   );
@@ -53,13 +58,17 @@ const styles = StyleSheet.create({
   padding: {
     width: '100%',
     padding: 16,
+    flex: 1,
   },
-  container: {
-    padding: 40,
+  outerContainer: {
+    flex: 1,
     width: '100%',
-    alignItems: 'center',
     borderRadius: 8,
     backgroundColor: 'rgba(183, 183, 183, 0.23)',
+  },
+  innerContainer: {
+    padding: 40,
+    alignItems: 'center',
   },
   date: {
     position: 'absolute',
@@ -86,6 +95,7 @@ const styles = StyleSheet.create({
     color: DETAILS_COLOR,
     marginTop: 8,
     textTransform: 'capitalize',
+    textAlign: 'center',
   },
   feelsLike: {
     fontSize: DETAILS_FONT_SIZE,

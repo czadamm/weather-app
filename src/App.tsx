@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
+import { ActivityIndicator, StyleSheet, View, Text, ScrollView } from 'react-native';
 import LottieView from 'lottie-react-native';
 import WeatherPreview from './components/WeatherPreview';
 import ForecastList from './components/ForecastList';
@@ -27,7 +27,7 @@ function AppContent() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style={isDayTime ? 'dark' : 'light'} />
       <LottieView
         source={isDayTime ? require('./assets/animations/bg-day.json') : require('./assets/animations/bg-night.json')}
         autoPlay

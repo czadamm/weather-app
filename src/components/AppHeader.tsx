@@ -149,10 +149,8 @@ const styles = StyleSheet.create({
     top: 82,
     left: 16,
     right: 16,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(87, 60, 60, 0.42)',
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
     maxHeight: 200,
     shadowColor: '#000',
     shadowOffset: {
@@ -167,12 +165,10 @@ const styles = StyleSheet.create({
   suggestionItem: {
     paddingHorizontal: 16,
     paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
   },
   suggestionText: {
     fontSize: 14,
-    color: '#333',
+    color: '#fff',
   },
   loadingText: {
     padding: 16,

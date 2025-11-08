@@ -11,7 +11,7 @@ interface ForecastDayProps {
   isDayTime?: boolean;
 }
 
-const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 function getDayName(date: number): string {
   const dateObj = new Date(date * 1000);
